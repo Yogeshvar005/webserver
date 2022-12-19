@@ -27,8 +27,35 @@ Serving the HTML pages.
 Testing the webserver
 
 ## PROGRAM:
+```python
+from http.server import HTTPServer,BaseHTTPRequestHandler
+
+content ="""
+<html>
+<body>
+<h1>Welcome to the webserver </h1>
+</body>
+</html>
+"""
+
+class WebHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('content-type','text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+    
+server_address=('',8080)
+httpd=HTTPServer(server_address,WebHandler)
+print("Web server running...")
+httpd.serve_forever()
+```
 
 ## OUTPUT:
+### server output
+![output](webserver.png)
+### Client output
+![output](web.png)
 
 ## RESULT:
 The program is executed succesfully
